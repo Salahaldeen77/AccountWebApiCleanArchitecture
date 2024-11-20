@@ -42,13 +42,14 @@ AccountProject Using Asp.net Core Web Api Using Clean Architecture Based On Code
 18.Unit Test (XUnit)
 
 
+
 # AccountWebApiCleanArchitecture
 
 مشروع حسابات باستخدام ASP.NET Core Web API وبنية النظافة (Clean Architecture).
 
 ## الوصف
 
-هذا المشروع يهدف إلى توفير واجهة برمجة تطبيقات (API) لحسابات المستخدمين باستخدام بنية النظافة في ASP.NET Core، مع استخدام نهج الكود أولًا (Code First).
+هذا المشروع يهدف إلى توفير واجهة برمجة تطبيقات (API) لحسابات المستخدمين باستخدام بنية النظافة Clean Architecture في ASP.NET Core، مع استخدام نهج الكود أولًا (Code First).
 
 ## المكونات
 
