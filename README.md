@@ -1,6 +1,6 @@
 # AccountWebApiCleanArchitecture
 
-مشروع حسابات باستخدام ASP.NET Core Web API وبنية النظافة (Clean Architecture).
+مشروع أدارة الحسابات باستخدام ASP.NET Core Web API وبنية النظافة (Clean Architecture).
 
 ## الوصف
 
