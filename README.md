@@ -40,3 +40,86 @@ AccountProject Using Asp.net Core Web Api Using Clean Architecture Based On Code
 17.Logs
 
 18.Unit Test (XUnit)
+
+
+# AccountWebApiCleanArchitecture
+
+مشروع حسابات باستخدام ASP.NET Core Web API وبنية النظافة (Clean Architecture).
+
+## الوصف
+
+هذا المشروع يهدف إلى توفير واجهة برمجة تطبيقات (API) لحسابات المستخدمين باستخدام بنية النظافة في ASP.NET Core، مع استخدام نهج الكود أولًا (Code First).
+
+## المكونات
+
+1. **نمط تصميم CQRS**
+2. **نمط تصميم المستودع العام (Generic Repository)**
+3. **نظام الترقيم الصفحات (Pagination)**
+4. **توطين البيانات والاستجابات**
+5. **التحقق باستخدام Fluent Validations**
+6. **التكوينات باستخدام Data Annotations**
+7. **التكوينات باستخدام Fluent API**
+8. **نقاط النهاية للعمليات**
+9. **السماح لـ CORS**
+10. **استخدام الهوية (Identity)**
+11. **إضافة المصادقة**
+12. **إضافة JWT Token وSwaggerGen**
+13. **التفويض (الأدوار، المطالبات)**
+14. **خدمات مثل إرسال البريد الإلكتروني، تحميل الصور**
+15. **فلاتر**
+16. **عمليات قاعدة البيانات (العروض، الإجراءات، الوظائف) نقطة النهاية**
+17. **تسجيل الأحداث (Logs)**
+18. **اختبارات الوحدة (XUnit)**
+
+## المتطلبات
+
+- .NET Core SDK
+- قاعدة بيانات مدعومة
+
+## كيفية البدء
+
+1. **استنساخ المستودع:**
+
+   ```bash
+   git clone https://github.com/Salahaldeen77/AccountWebApiCleanArchitecture.git
+   ```
+
+2. **الدخول إلى مجلد المشروع:**
+
+   ```bash
+   cd AccountWebApiCleanArchitecture
+   ```
+
+3. **استعادة الحزم:**
+
+   ```bash
+   dotnet restore
+   ```
+
+4. **بناء المشروع:**
+
+   ```bash
+   dotnet build
+   ```
+
+5. **تشغيل التطبيق:**
+
+   ```bash
+   dotnet run
+   ```
+
+## بنية المشروع
+
+- `AccountWeb.Api`: يحتوي على منطق API.
+- `AccountWeb.Core`: يحتوي على النماذج والمنطق الأساسي.
+- `AccountWeb.Data`: يحتوي على منطق الوصول إلى البيانات.
+- `AccountWeb.Infrastructure`: يحتوي على الخدمات والبنية الأساسية.
+- `AccountWeb.Service`: يحتوي على الخدمات المنطقية للتطبيق.
+
+## المساهمة
+
+مرحب بالمساهمات! الرجاء فتح "issues" للمناقشة قبل تقديم "pull requests".
+
+## الرخصة
+
+هذا المشروع مرخص تحت رخصة MIT. لمزيد من المعلومات، راجع ملف `LICENSE`.
