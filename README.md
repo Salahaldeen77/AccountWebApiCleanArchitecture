@@ -76,9 +76,7 @@
 
 مرحب بالمساهمات! الرجاء فتح "issues" للمناقشة قبل تقديم "pull requests".
 
-## الرخصة
 
-هذا المشروع مرخص تحت رخصة MIT. لمزيد من المعلومات، راجع ملف `LICENSE`.
 
 # AccountSysWebApiInCleanArchitecture
 
