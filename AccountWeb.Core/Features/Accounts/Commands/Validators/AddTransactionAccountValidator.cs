@@ -47,6 +47,12 @@ namespace AccountWeb.Core.Features.Accounts.Commands.Validators
                 .MustAsync(async (Key, CancellationToken) => await _transactionAccountService.IsTransactionExistByIdAsync(Key))
                 .WithMessage($"The TransactionId is Not Found ^_^");
 
+            //check if AccountId == TransferredToAccountId return exception
+            When(x => x.TransferredToAccountId == x.AccountId, () =>
+            {
+                RuleFor(x => x.TransferredToAccountId)
+                   .Must((Key) => false).WithMessage("Must be different AccountId And TransferredToAccountId");
+            });
         }
         #endregion
 
