@@ -23,18 +23,19 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
 //Connction string to sql server
 builder.Services.AddDbContext<ApplicationDbContext>(option =>
 {
     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-
 //builder.Services.AddTransient<IAccountRepository,AccountRepository>();
 #region Dependency injections
 builder.Services.AddInfrustructureDependencies()    //the same before line code
                 .AddServicesDependencies()
-                .AddCoreDependencies();
+                .AddCoreDependencies()
+                .AddServiceRegistration();
 #endregion
 
 #region Localization
