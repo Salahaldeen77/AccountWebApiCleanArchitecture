@@ -1,7 +1,7 @@
 ﻿using AccountWeb.Core.Bases;
 using MediatR;
 
-namespace AccountWeb.Core.Features.Accounts.Commands.Models
+namespace AccountWeb.Core.Features.TransactionAccounts.Commands.Models
 {
     public class AddTransactionAccountCommand : IRequest<Response<string>>
     {

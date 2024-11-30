@@ -1,4 +1,4 @@
-﻿using AccountWeb.Core.Features.Accounts.Queries.Responses;
+﻿using AccountWeb.Core.Features.TransactionAccounts.Queries.Responses;
 using AccountWeb.Data.Entities;
 
 //namespace AccountWeb.Core.Mapping.TransactionAccounts.QueryMapping

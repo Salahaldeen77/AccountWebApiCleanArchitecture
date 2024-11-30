@@ -16,7 +16,7 @@ namespace AccountWeb.Infrustructure
                 option.Password.RequireLowercase = true;
                 option.Password.RequireNonAlphanumeric = true;
                 option.Password.RequireUppercase = true;
-                option.Password.RequiredLength = 6;
+                option.Password.RequiredLength = 4;
                 option.Password.RequiredUniqueChars = 1;
 
                 // Lockout settings.
@@ -28,7 +28,7 @@ namespace AccountWeb.Infrustructure
                 option.User.AllowedUserNameCharacters =
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 option.User.RequireUniqueEmail = true;
-                option.SignIn.RequireConfirmedEmail = true;
+                option.SignIn.RequireConfirmedEmail = false;
 
 
 

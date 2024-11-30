@@ -1,4 +1,4 @@
-﻿using AccountWeb.Core.Features.Accounts.Commands.Models;
+﻿using AccountWeb.Core.Features.TransactionAccounts.Commands.Models;
 using AccountWeb.Data.Entities;
 using AutoMapper;
 using System;

@@ -16,6 +16,12 @@
             public const string Paginated = Prefix + "/Paginated";
 
         }
+        public static class UserRouting
+        {
+            public const string Prefix = Rule + "User";
+            public const string Create = Prefix + "/Create";
+
+        }
         public static class TransactionAccountRouting
         {
             public const string Prefix = Rule + "TransactionAccount";

@@ -1,5 +1,5 @@
 ﻿using AccountWeb.Core.Bases;
-using AccountWeb.Core.Features.Accounts.Commands.Models;
+using AccountWeb.Core.Features.TransactionAccounts.Commands.Models;
 using AccountWeb.Core.Resources;
 using AccountWeb.Data.Entities;
 using AccountWeb.Service.Abstracts;
@@ -7,7 +7,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Localization;
 
-namespace AccountWeb.Core.Features.Accounts.Commands.Handlers
+namespace AccountWeb.Core.Features.TransactionAccounts.Commands.Handlers
 {
     public class TransactionAccountCommandHandler : ResponseHandler, IRequestHandler<AddTransactionAccountCommand, Response<string>>
     {
@@ -24,8 +24,8 @@ namespace AccountWeb.Core.Features.Accounts.Commands.Handlers
                                                 IMapper mapper,
                                                 IStringLocalizer<SharedResources> localizer) : base(localizer)
         {
-            this._transactionAccountService = transactionAccountService;
-            this._mapper = mapper;
+            _transactionAccountService = transactionAccountService;
+            _mapper = mapper;
             _accountService = accountService;
         }
         #endregion
