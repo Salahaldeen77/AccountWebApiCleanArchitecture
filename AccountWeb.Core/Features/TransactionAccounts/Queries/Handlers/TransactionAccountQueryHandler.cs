@@ -1,13 +1,13 @@
 ﻿using AccountWeb.Core.Bases;
-using AccountWeb.Core.Features.Accounts.Queries.Models;
-using AccountWeb.Core.Features.Accounts.Queries.Responses;
+using AccountWeb.Core.Features.TransactionAccounts.Queries.Models;
+using AccountWeb.Core.Features.TransactionAccounts.Queries.Responses;
 using AccountWeb.Core.Resources;
 using AccountWeb.Service.Abstracts;
 using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Localization;
 
-namespace AccountWeb.Core.Features.Accounts.Queries.Handlers
+namespace AccountWeb.Core.Features.TransactionAccounts.Queries.Handlers
 {
     public class TransactionAccountQueryHandler : ResponseHandler, IRequestHandler<GetTransactionAccountListResponseQuery, Response<List<GetTransactionAccountListResponse>>>
     {
@@ -20,8 +20,8 @@ namespace AccountWeb.Core.Features.Accounts.Queries.Handlers
                                                 IMapper mapper,
                                                 IStringLocalizer<SharedResources> localizer) : base(localizer)
         {
-            this._transactionAccountService = transactionAccount;
-            this._mapper = mapper;
+            _transactionAccountService = transactionAccount;
+            _mapper = mapper;
         }
         #endregion
         public async Task<Response<List<GetTransactionAccountListResponse>>> Handle(GetTransactionAccountListResponseQuery request, CancellationToken cancellationToken)

@@ -1,10 +1,10 @@
-﻿using AccountWeb.Core.Features.Accounts.Commands.Models;
+﻿using AccountWeb.Core.Features.TransactionAccounts.Commands.Models;
 using AccountWeb.Core.Resources;
 using AccountWeb.Service.Abstracts;
 using FluentValidation;
 using Microsoft.Extensions.Localization;
 
-namespace AccountWeb.Core.Features.Accounts.Commands.Validators
+namespace AccountWeb.Core.Features.TransactionAccounts.Commands.Validators
 {
     public class AddTransactionAccountValidator : AbstractValidator<AddTransactionAccountCommand>
     {

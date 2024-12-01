@@ -1,4 +1,4 @@
-﻿namespace AccountWeb.Core.Features.Accounts.Queries.Responses
+﻿namespace AccountWeb.Core.Features.TransactionAccounts.Queries.Responses
 {
     public class GetTransactionAccountListResponse
     {

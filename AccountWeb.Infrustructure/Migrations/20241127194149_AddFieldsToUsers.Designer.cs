@@ -4,6 +4,7 @@ using AccountWeb.Infrustructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AccountWeb.Infrustructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241127194149_AddFieldsToUsers")]
+    partial class AddFieldsToUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,7 +49,7 @@ namespace AccountWeb.Infrustructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Accounts", (string)null);
+                    b.ToTable("Accounts");
                 });
 
             modelBuilder.Entity("AccountWeb.Data.Entities.Identity.User", b =>
@@ -152,7 +155,7 @@ namespace AccountWeb.Infrustructure.Migrations
                     b.HasIndex("TransactionAccountId")
                         .IsUnique();
 
-                    b.ToTable("LedgerEntries", (string)null);
+                    b.ToTable("LedgerEntries");
                 });
 
             modelBuilder.Entity("AccountWeb.Data.Entities.Transaction", b =>
@@ -173,7 +176,7 @@ namespace AccountWeb.Infrustructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Transactions", (string)null);
+                    b.ToTable("Transactions");
                 });
 
             modelBuilder.Entity("AccountWeb.Data.Entities.TransactionAccount", b =>
@@ -205,7 +208,7 @@ namespace AccountWeb.Infrustructure.Migrations
 
                     b.HasIndex("TransactionId");
 
-                    b.ToTable("TransactionAccounts", (string)null);
+                    b.ToTable("TransactionAccounts");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
