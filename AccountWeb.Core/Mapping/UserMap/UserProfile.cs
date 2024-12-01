@@ -7,6 +7,8 @@ namespace AccountWeb.Core.Mapping.UserMap
         public UserProfile()
         {
             AddUserMapping();
+            GetUserPaginationMapping();
+            GetUserByIdMapping();
         }
 
     }

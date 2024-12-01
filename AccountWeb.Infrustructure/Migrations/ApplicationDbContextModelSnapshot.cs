@@ -46,7 +46,7 @@ namespace AccountWeb.Infrustructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Accounts");
+                    b.ToTable("Accounts", (string)null);
                 });
 
             modelBuilder.Entity("AccountWeb.Data.Entities.Identity.User", b =>
@@ -152,7 +152,7 @@ namespace AccountWeb.Infrustructure.Migrations
                     b.HasIndex("TransactionAccountId")
                         .IsUnique();
 
-                    b.ToTable("LedgerEntries");
+                    b.ToTable("LedgerEntries", (string)null);
                 });
 
             modelBuilder.Entity("AccountWeb.Data.Entities.Transaction", b =>
@@ -173,7 +173,7 @@ namespace AccountWeb.Infrustructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Transactions");
+                    b.ToTable("Transactions", (string)null);
                 });
 
             modelBuilder.Entity("AccountWeb.Data.Entities.TransactionAccount", b =>
@@ -205,7 +205,7 @@ namespace AccountWeb.Infrustructure.Migrations
 
                     b.HasIndex("TransactionId");
 
-                    b.ToTable("TransactionAccounts");
+                    b.ToTable("TransactionAccounts", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
