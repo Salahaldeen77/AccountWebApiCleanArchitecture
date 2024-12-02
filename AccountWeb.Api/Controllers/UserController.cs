@@ -37,5 +37,13 @@ namespace AccountWeb.Api.Controllers
         {
             return NewResult(await Mediator.Send(command));
         }
+
+        [HttpDelete(Router.UserRouting.Delete)]
+        public async Task<IActionResult> Delete([FromRoute] int Id)
+        {
+            //var response =await Mediator.Send(command);
+            //return Ok(response);
+            return NewResult(await Mediator.Send(new DeleteUserCommand(Id)));
+        }
     }
 }

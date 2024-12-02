@@ -32,8 +32,7 @@
             public const string Paginated = Prefix + "/Paginated";
             public const string GetById = Prefix + "/{Id}";
             public const string Edite = Prefix + "/Edite";
-
-
+            public const string Delete = Prefix + "/{Id}";
         }
 
         public static class TransactionRouting

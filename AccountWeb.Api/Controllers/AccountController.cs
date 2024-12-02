@@ -45,7 +45,6 @@ namespace AccountWeb.Api.Controllers
             return NewResult(await Mediator.Send(command));
         }
         [HttpPut(Router.AccountRouting.Edit)]
-
         public async Task<IActionResult> Edit([FromBody] EditAccountCommand command)
         {
             //var response =await Mediator.Send(command);
@@ -55,7 +54,6 @@ namespace AccountWeb.Api.Controllers
         }
 
         [HttpDelete(Router.AccountRouting.Delete)]
-
         public async Task<IActionResult> Delete([FromRoute] int Id)
         {
             //var response =await Mediator.Send(command);
