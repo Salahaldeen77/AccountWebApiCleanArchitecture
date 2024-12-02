@@ -31,5 +31,11 @@ namespace AccountWeb.Api.Controllers
         {
             return NewResult(await Mediator.Send(new GetUserByIdQuery(Id)));
         }
+
+        [HttpPut(Router.UserRouting.Edite)]
+        public async Task<IActionResult> Edite([FromBody] EditeUserCommand command)
+        {
+            return NewResult(await Mediator.Send(command));
+        }
     }
 }

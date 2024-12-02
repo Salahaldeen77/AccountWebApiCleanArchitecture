@@ -48,7 +48,7 @@ namespace AccountWeb.Core.Features.Users.Queries.Handlers
         public async Task<Response<GetUserByIdResponse>> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
         {
             //var user = await _userManager.FindByIdAsync(request.Id.ToString());
-            var user = _userManager.Users.FirstOrDefaultAsync(x => x.Id == request.Id);
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == request.Id);
 
             if (user == null) return NotFound<GetUserByIdResponse>("");
 

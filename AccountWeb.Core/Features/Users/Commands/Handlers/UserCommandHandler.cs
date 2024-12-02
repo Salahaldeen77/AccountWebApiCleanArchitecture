@@ -5,11 +5,13 @@ using AccountWeb.Data.Entities.Identity;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 
 namespace AccountWeb.Core.Features.Users.Commands.Handlers
 {
     public class UserCommandHandler : ResponseHandler, IRequestHandler<AddUserCommand, Response<string>>
+                                                     , IRequestHandler<EditeUserCommand, Response<string>>
     {
         #region Fields
         private readonly IMapper _mapper;
@@ -49,6 +51,24 @@ namespace AccountWeb.Core.Features.Users.Commands.Handlers
 
             //Success
             return Created("");
+
+        }
+
+        public async Task<Response<string>> Handle(EditeUserCommand request, CancellationToken cancellationToken)
+        {
+            //check user exist
+            var oldUser = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == request.Id);
+            if (oldUser == null) return NotFound<string>($"The UserId:{request.Id} is not found ");
+
+            //The Map in Edite Should be like this code
+            var newUser = _mapper.Map(request, oldUser);
+
+            //Update
+            var result = await _userManager.UpdateAsync(newUser);
+            //check Success Updated
+            if (!result.Succeeded) return BadRequest<string>($"Failed,error update UserId:{newUser.Id}");
+
+            return Success($"Updated Successfuly UserId:{newUser.Id}");
 
         }
         #endregion
