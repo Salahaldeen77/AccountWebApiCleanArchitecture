@@ -9,6 +9,7 @@ namespace AccountWeb.Core.Mapping.UserMap
             AddUserMapping();
             GetUserPaginationMapping();
             GetUserByIdMapping();
+            EditeUserMapping();
         }
 
     }
