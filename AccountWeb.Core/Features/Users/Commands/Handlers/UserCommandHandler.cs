@@ -13,6 +13,7 @@ namespace AccountWeb.Core.Features.Users.Commands.Handlers
     public class UserCommandHandler : ResponseHandler, IRequestHandler<AddUserCommand, Response<string>>
                                                      , IRequestHandler<EditeUserCommand, Response<string>>
                                                      , IRequestHandler<DeleteUserCommand, Response<string>>
+                                                     , IRequestHandler<ChangeUserPasswordCommand, Response<string>>
     {
         #region Fields
         private readonly IMapper _mapper;
@@ -62,7 +63,9 @@ namespace AccountWeb.Core.Features.Users.Commands.Handlers
 
             //The Map in Edite Should be like this code
             var newUser = _mapper.Map(request, oldUser);
-
+            //check if UserName is Exist and Except oldUser id. 
+            var userByUserName = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == newUser.UserName && x.Id != newUser.Id);
+            if (userByUserName != null) return BadRequest<string>("Failed, UserName is Exist");
             //Update
             var result = await _userManager.UpdateAsync(newUser);
             //check Success Updated
@@ -79,9 +82,23 @@ namespace AccountWeb.Core.Features.Users.Commands.Handlers
             if (user == null) return NotFound<string>($"The UserId:{request.Id} is not found ");
             //Delete User
             var result = await _userManager.DeleteAsync(user);
-            if (!result.Succeeded) return BadRequest<string>($"Failed,error Delete UserId:{user.Id}");
+            if (!result.Succeeded) return BadRequest<string>($"Failed,error Delete UserId:{user.Id}", result.Errors.FirstOrDefault().Description);
 
             return Success($"Deleted Successfuly UserId:{user.Id}");
+
+        }
+
+        public async Task<Response<string>> Handle(ChangeUserPasswordCommand request, CancellationToken cancellationToken)
+        {
+            //check User is Exist
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == request.Id);
+            if (user == null) return NotFound<string>($"The UserId:{request.Id} is not found ");
+            //change User Password
+            var result = await _userManager.ChangePasswordAsync(user, request.CurrentPassword, request.NewPassword);
+            //return result
+            if (!result.Succeeded) return BadRequest<string>($"Failed,error Change Password", result.Errors.FirstOrDefault().Description);
+            return Success($"Change Password is Successfuly ");
+
 
         }
         #endregion
