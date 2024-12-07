@@ -21,4 +21,9 @@
     <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="8.0.10" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Authentication\Commands\Responses\" />
+    <Folder Include="Features\Authentication\Queries\" />
+  </ItemGroup>
+
 </Project>

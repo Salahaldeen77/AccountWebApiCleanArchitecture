@@ -2,6 +2,7 @@
 using AccountWeb.Core.Features.Accounts.Commands.Models;
 using AccountWeb.Core.Features.Accounts.Queries.Models;
 using AccountWeb.Data.AppMetaData;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AccountWeb.Api.Controllers
@@ -9,6 +10,7 @@ namespace AccountWeb.Api.Controllers
     //[Route("api/[controller]")]
 
     [ApiController]
+    [Authorize] //Access to the Class Private
     public class AccountController : AppControllerBase
     {
 
