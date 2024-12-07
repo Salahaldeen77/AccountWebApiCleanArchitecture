@@ -144,4 +144,16 @@
   <data name="Name" xml:space="preserve">
     <value>الاسم</value>
   </data>
+  <data name="UserName" xml:space="preserve">
+    <value>اسم المستخدم</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>كلمة المرور</value>
+  </data>
+  <data name="UserNameIsNotExist" xml:space="preserve">
+    <value>اسم المستخدم هذا غير موجود</value>
+  </data>
+  <data name="PasswordNotCorrect" xml:space="preserve">
+    <value>كلمة المرور غير صحيحة</value>
+  </data>
 </root>

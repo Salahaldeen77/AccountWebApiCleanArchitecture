@@ -10,6 +10,11 @@
         public const string Success = "Success";
         public const string NotEmpty = "NotEmpty";
         public const string NotNull = "NotNull";
+        public const string UserName = "UserName";
+        public const string Password = "Password";
+        public const string UserNameIsNotExist = "UserNameIsNotExist";
+        public const string PasswordNotCorrect = "PasswordNotCorrect";
+
 
     }
 }
