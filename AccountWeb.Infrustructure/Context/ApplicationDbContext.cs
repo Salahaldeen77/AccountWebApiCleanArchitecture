@@ -23,6 +23,7 @@ namespace AccountWeb.Infrustructure.Context
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<TransactionAccount> TransactionAccounts { get; set; }
         public DbSet<LedgerEntry> LedgerEntries { get; set; }
+        public DbSet<UserRefreshToken> UserRefreshToken { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

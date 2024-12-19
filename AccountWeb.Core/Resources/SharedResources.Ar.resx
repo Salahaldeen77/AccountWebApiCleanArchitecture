@@ -156,4 +156,19 @@
   <data name="PasswordNotCorrect" xml:space="preserve">
     <value>كلمة المرور غير صحيحة</value>
   </data>
+  <data name="RefreshTokenIsExpired" xml:space="preserve">
+    <value>رمز التنشيط انتهت صلاحيته</value>
+  </data>
+  <data name="RefreshTokenIsNotFound" xml:space="preserve">
+    <value>رمز التنشيط غير موجود</value>
+  </data>
+  <data name="TokenIsNotExpired" xml:space="preserve">
+    <value>رمز الوصول الذي تستخدمه ليس منتهي الصلاحيه</value>
+  </data>
+  <data name="AlgorithmIsWorng" xml:space="preserve">
+    <value>هناك خطأ في الخوارزمية المستخدمة في التشفير</value>
+  </data>
+  <data name="TokenIsExpired" xml:space="preserve">
+    <value>رمز الوصول الذي تستخمه انتهت صلاحيته</value>
+  </data>
 </root>

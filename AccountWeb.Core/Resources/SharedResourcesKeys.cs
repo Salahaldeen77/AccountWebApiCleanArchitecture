@@ -14,6 +14,11 @@
         public const string Password = "Password";
         public const string UserNameIsNotExist = "UserNameIsNotExist";
         public const string PasswordNotCorrect = "PasswordNotCorrect";
+        public const string AlgorithmIsWorng = "AlgorithmIsWorng";
+        public const string RefreshTokenIsExpired = "RefreshTokenIsExpired";
+        public const string RefreshTokenIsNotFound = "RefreshTokenIsNotFound";
+        public const string TokenIsNotExpired = "TokenIsNotExpired";
+        public const string TokenIsExpired = "TokenIsExpired";
 
 
     }
