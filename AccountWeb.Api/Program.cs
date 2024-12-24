@@ -1,8 +1,11 @@
 using AccountWeb.Core;
 using AccountWeb.Core.MiddleWare;
+using AccountWeb.Data.Entities.Identity;
 using AccountWeb.Infrustructure;
 using AccountWeb.Infrustructure.Context;
+using AccountWeb.Infrustructure.Seeder;
 using AccountWeb.Service;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -79,7 +82,13 @@ builder.Services.AddCors(options =>
 
 #endregion
 var app = builder.Build();
-
+using (var scope = app.Services.CreateScope())
+{
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<Role>>();
+    await RoleSeeder.SeedAsync(roleManager);
+    await UserSeeder.SeedAsync(userManager);
+}
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

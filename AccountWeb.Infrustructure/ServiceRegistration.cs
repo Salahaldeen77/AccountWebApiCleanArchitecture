@@ -15,13 +15,13 @@ namespace AccountWeb.Infrustructure
     {
         public static IServiceCollection AddServiceRegistration(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddIdentity<User, IdentityRole<int>>(option =>
+            services.AddIdentity<User, Role>(option =>
             {
                 // Password settings.
                 option.Password.RequireDigit = true;
-                option.Password.RequireLowercase = true;
-                option.Password.RequireNonAlphanumeric = true;
-                option.Password.RequireUppercase = true;
+                option.Password.RequireLowercase = false;
+                option.Password.RequireNonAlphanumeric = false;
+                option.Password.RequireUppercase = false;
                 option.Password.RequiredLength = 4;
                 option.Password.RequiredUniqueChars = 1;
 
