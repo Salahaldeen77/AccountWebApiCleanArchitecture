@@ -13,7 +13,8 @@ namespace AccountWeb.Service
                     AddTransient<ITransactionService, TransactionService>()
                     .AddTransient<ITransactionAccountService, TransactionAccountService>()
                     .AddTransient<ILedgerEntriesService, LedgerEntriesService>()
-                    .AddTransient<IAuthenticationService, AuthenticationService>();
+                    .AddTransient<IAuthenticationService, AuthenticationService>()
+                    .AddTransient<IAuthorizationService, AuthorizationService>();
             return services;
         }
 

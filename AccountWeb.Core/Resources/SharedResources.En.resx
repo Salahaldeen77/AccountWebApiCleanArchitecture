@@ -168,4 +168,10 @@
   <data name="TokenIsExpired" xml:space="preserve">
     <value>Token Is Expired</value>
   </data>
+  <data name="IsExist" xml:space="preserve">
+    <value>The Item Is Exist </value>
+  </data>
+  <data name="AddFailed" xml:space="preserve">
+    <value>Added Failed</value>
+  </data>
 </root>

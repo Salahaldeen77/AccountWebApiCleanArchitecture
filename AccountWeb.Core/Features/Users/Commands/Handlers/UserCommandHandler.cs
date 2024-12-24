@@ -51,6 +51,9 @@ namespace AccountWeb.Core.Features.Users.Commands.Handlers
             //Failed
             if (!CreateResult.Succeeded) return BadRequest<string>("Failed to add user", CreateResult.Errors.FirstOrDefault().Description);
 
+            //Adding Role User
+            await _userManager.AddToRoleAsync(identityUser, "User");
+
             //Success
             return Created("");
 

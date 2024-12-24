@@ -19,6 +19,8 @@
         public const string RefreshTokenIsNotFound = "RefreshTokenIsNotFound";
         public const string TokenIsNotExpired = "TokenIsNotExpired";
         public const string TokenIsExpired = "TokenIsExpired";
+        public const string IsExist = "IsExist";
+        public const string AddFailed = "AddFailed";
 
 
     }

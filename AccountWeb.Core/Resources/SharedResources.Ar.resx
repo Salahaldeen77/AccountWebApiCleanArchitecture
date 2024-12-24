@@ -171,4 +171,10 @@
   <data name="TokenIsExpired" xml:space="preserve">
     <value>رمز الوصول الذي تستخمه انتهت صلاحيته</value>
   </data>
+  <data name="IsExist" xml:space="preserve">
+    <value>العنصر موجود مسبقا ادخل شيء اخر</value>
+  </data>
+  <data name="AddFailed" xml:space="preserve">
+    <value>حدث خطأ في الاضافه</value>
+  </data>
 </root>
