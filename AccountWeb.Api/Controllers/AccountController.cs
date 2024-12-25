@@ -10,7 +10,7 @@ namespace AccountWeb.Api.Controllers
     //[Route("api/[controller]")]
 
     [ApiController]
-    [Authorize] //Access to the Class Private
+    [Authorize(Roles = "Admin,User")] //Access to the Class Private Except Admin or User
     public class AccountController : AppControllerBase
     {
 

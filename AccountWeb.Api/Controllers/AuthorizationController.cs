@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace AccountWeb.Api.Controllers
 {
     [ApiController]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class AuthorizationController : AppControllerBase
     {
         [HttpPost(Router.AuthorizationRouting.Create)]
