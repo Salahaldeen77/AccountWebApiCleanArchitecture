@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace AccountWeb.Api.Controllers
 {
     [ApiController]
-    [Authorize] //Access to the class private
+    [Authorize(Roles = "User")] //Access to the class private except User
     public class TransactionAccountController : AppControllerBase
     {
 

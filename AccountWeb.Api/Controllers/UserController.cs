@@ -2,12 +2,15 @@
 using AccountWeb.Core.Features.Users.Commands.Models;
 using AccountWeb.Core.Features.Users.Queries.Models;
 using AccountWeb.Data.AppMetaData;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AccountWeb.Api.Controllers
 {
     // [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]//Access to the Class Private Except Admin or User
+
     public class UserController : AppControllerBase
     {
         [HttpPost(Router.UserRouting.Create)]
