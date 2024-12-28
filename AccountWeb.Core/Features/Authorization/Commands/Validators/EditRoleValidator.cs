@@ -1,24 +1,20 @@
 ﻿using AccountWeb.Core.Features.Authorization.Commands.Models;
 using AccountWeb.Core.Resources;
-using AccountWeb.Service.Abstracts;
 using FluentValidation;
 using Microsoft.Extensions.Localization;
 
 namespace AccountWeb.Core.Features.Authorization.Commands.Validators
 {
-    public class AddRoleValidator : AbstractValidator<AddRoleCommand>
+    public class EditRoleValidator : AbstractValidator<EditRoleCommand>
     {
         #region Fields
         private readonly IStringLocalizer<SharedResources> _stringLocalizer;
-        private readonly IAuthorizationService _authorizationService;
         #endregion
 
         #region Constructors
-        public AddRoleValidator(IStringLocalizer<SharedResources> stringLocalizer,
-                                IAuthorizationService authorizationService)
+        public EditRoleValidator(IStringLocalizer<SharedResources> stringLocalizer)
         {
             _stringLocalizer = stringLocalizer;
-            _authorizationService = authorizationService;
             ApplyValidationsRules();
             ApplyCustomValidationsRules();
 
@@ -28,17 +24,16 @@ namespace AccountWeb.Core.Features.Authorization.Commands.Validators
         #region Actions
         public void ApplyValidationsRules()
         {
-            RuleFor(x => x.RoleName)
+            RuleFor(x => x.Id)
+                .NotEmpty().WithMessage(_stringLocalizer[SharedResourcesKeys.NotEmpty])
+                .NotNull().WithMessage(_stringLocalizer[SharedResourcesKeys.Required]);
+            RuleFor(x => x.Name)
                 .NotEmpty().WithMessage(_stringLocalizer[SharedResourcesKeys.NotEmpty])
                 .NotNull().WithMessage(_stringLocalizer[SharedResourcesKeys.Required]);
         }
         public void ApplyCustomValidationsRules()
         {
-            RuleFor(x => x.RoleName)
-                .MustAsync(async (Key, CancellationToken) => !await _authorizationService.IsRoleExistByNameAsync(Key))
-                .WithMessage(_stringLocalizer[SharedResourcesKeys.IsExist]);
         }
         #endregion
     }
-
 }
