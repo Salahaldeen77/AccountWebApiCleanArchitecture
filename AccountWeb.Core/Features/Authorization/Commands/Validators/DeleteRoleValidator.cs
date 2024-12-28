@@ -1,24 +1,22 @@
 ﻿using AccountWeb.Core.Features.Authorization.Commands.Models;
 using AccountWeb.Core.Resources;
-using AccountWeb.Service.Abstracts;
 using FluentValidation;
 using Microsoft.Extensions.Localization;
 
 namespace AccountWeb.Core.Features.Authorization.Commands.Validators
 {
-    public class AddRoleValidator : AbstractValidator<AddRoleCommand>
+    public class DeleteRoleValidator : AbstractValidator<DeleteRoleCommand>
     {
         #region Fields
         private readonly IStringLocalizer<SharedResources> _stringLocalizer;
-        private readonly IAuthorizationService _authorizationService;
+        //private readonly RoleManager<Role> _roleManager;
         #endregion
 
         #region Constructors
-        public AddRoleValidator(IStringLocalizer<SharedResources> stringLocalizer,
-                                IAuthorizationService authorizationService)
+        public DeleteRoleValidator(IStringLocalizer<SharedResources> stringLocalizer)
         {
             _stringLocalizer = stringLocalizer;
-            _authorizationService = authorizationService;
+            //_roleManager = roleManager;
             ApplyValidationsRules();
             ApplyCustomValidationsRules();
 
@@ -28,17 +26,21 @@ namespace AccountWeb.Core.Features.Authorization.Commands.Validators
         #region Actions
         public void ApplyValidationsRules()
         {
-            RuleFor(x => x.RoleName)
+            RuleFor(x => x.Id)
                 .NotEmpty().WithMessage(_stringLocalizer[SharedResourcesKeys.NotEmpty])
                 .NotNull().WithMessage(_stringLocalizer[SharedResourcesKeys.Required]);
         }
+        //public async Task<bool> isExist(int id)
+        //{
+        //    var role = await _roleManager.FindByIdAsync(id.ToString());
+        //    return role != null;
+        //}
         public void ApplyCustomValidationsRules()
         {
-            RuleFor(x => x.RoleName)
-                .MustAsync(async (Key, CancellationToken) => !await _authorizationService.IsRoleExistByNameAsync(Key))
-                .WithMessage(_stringLocalizer[SharedResourcesKeys.IsExist]);
+            //RuleFor(x => x.Id)
+            //    .MustAsync(async (Key, CancellationToken) => await isExist(Key))
+            //    .WithMessage(_stringLocalizer[SharedResourcesKeys.NotFound]);
         }
         #endregion
     }
-
 }
