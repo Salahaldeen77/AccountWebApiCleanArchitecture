@@ -4,7 +4,7 @@ using MediatR;
 
 namespace AccountWeb.Core.Features.Authorization.Commands.Models
 {
-    public class EditRoleCommand : EditRoleRequest, IRequest<Response<string>>
+    public class UpdateUserRolesCommand : UpdateUserRolesRequest, IRequest<Response<string>>
     {
     }
 }

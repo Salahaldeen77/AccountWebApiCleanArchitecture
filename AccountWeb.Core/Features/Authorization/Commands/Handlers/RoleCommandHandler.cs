@@ -10,7 +10,8 @@ namespace AccountWeb.Core.Features.Authorization.Commands.Handlers
     public class RoleCommandHandler : ResponseHandler,
                                       IRequestHandler<AddRoleCommand, Response<string>>,
                                       IRequestHandler<EditRoleCommand, Response<string>>,
-                                      IRequestHandler<DeleteRoleCommand, Response<string>>
+                                      IRequestHandler<DeleteRoleCommand, Response<string>>,
+                                      IRequestHandler<UpdateUserRolesCommand, Response<string>>
     {
         #region Fields
         private readonly IStringLocalizer<SharedResources> _stringlocalizer;
@@ -51,6 +52,14 @@ namespace AccountWeb.Core.Features.Authorization.Commands.Handlers
             if (result == "NotFound") return NotFound<string>();
             else if (result == "Used") return BadRequest<string>("Role is already in use");
             else if (result == "Success") return Success((string)_stringlocalizer[SharedResourcesKeys.Deleted]);
+            else return BadRequest<string>(result);
+        }
+
+        public async Task<Response<string>> Handle(UpdateUserRolesCommand request, CancellationToken cancellationToken)
+        {
+            var result = await _authorizationService.UpdateUserRolesAsync(request);
+            if (result == "NotFound") return NotFound<string>("User Is NotFound");
+            else if (result == "Success") return Success("Updated Roles Successfully");
             else return BadRequest<string>(result);
         }
         #endregion

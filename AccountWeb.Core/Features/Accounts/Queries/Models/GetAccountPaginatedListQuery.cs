@@ -1,6 +1,6 @@
 ﻿using AccountWeb.Core.Features.Accounts.Queries.Responses;
 using AccountWeb.Core.Wrappers;
-using AccountWeb.Data.Helpers;
+using AccountWeb.Data.Enums;
 using MediatR;
 
 namespace AccountWeb.Core.Features.Accounts.Queries.Models

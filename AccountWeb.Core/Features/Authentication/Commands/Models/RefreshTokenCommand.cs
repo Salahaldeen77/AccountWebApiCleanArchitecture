@@ -1,5 +1,5 @@
 ﻿using AccountWeb.Core.Bases;
-using AccountWeb.Data.Helpers;
+using AccountWeb.Data.Responses;
 using MediatR;
 
 namespace AccountWeb.Core.Features.Authentication.Commands.Models

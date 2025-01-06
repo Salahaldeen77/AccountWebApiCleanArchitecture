@@ -2,7 +2,7 @@
 using AccountWeb.Core.Features.Authentication.Commands.Models;
 using AccountWeb.Core.Resources;
 using AccountWeb.Data.Entities.Identity;
-using AccountWeb.Data.Helpers;
+using AccountWeb.Data.Responses;
 using AccountWeb.Service.Abstracts;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
