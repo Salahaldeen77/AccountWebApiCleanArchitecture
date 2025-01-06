@@ -1,5 +1,5 @@
 ﻿using AccountWeb.Data.Entities;
-using AccountWeb.Data.Helpers;
+using AccountWeb.Data.Enums;
 using AccountWeb.Infrustructure.Abstracts;
 using AccountWeb.Infrustructure.Context;
 using AccountWeb.Infrustructure.Repositories;

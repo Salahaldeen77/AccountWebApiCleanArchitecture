@@ -1,4 +1,4 @@
-﻿namespace AccountWeb.Data.DTOs
+﻿namespace AccountWeb.Data.Requests
 {
     public class EditRoleRequest
     {

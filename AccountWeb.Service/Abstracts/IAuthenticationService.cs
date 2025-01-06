@@ -1,5 +1,5 @@
 ﻿using AccountWeb.Data.Entities.Identity;
-using AccountWeb.Data.Helpers;
+using AccountWeb.Data.Responses;
 using System.IdentityModel.Tokens.Jwt;
 
 namespace AccountWeb.Service.Abstracts

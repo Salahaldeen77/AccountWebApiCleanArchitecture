@@ -1,4 +1,4 @@
-﻿namespace AccountWeb.Data.Helpers
+﻿namespace AccountWeb.Data.Enums
 {
     public enum AccountOrderingEnum
     {

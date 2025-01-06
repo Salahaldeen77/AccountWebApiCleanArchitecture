@@ -1,4 +1,4 @@
-﻿namespace AccountWeb.Data.Helpers
+﻿namespace AccountWeb.Data.Responses
 {
     public class JwtAuthResult
     {
