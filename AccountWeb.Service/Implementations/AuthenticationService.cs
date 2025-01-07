@@ -168,8 +168,9 @@ namespace AccountWeb.Service.Implementations
             return Convert.ToBase64String(randomNumber);
         }
 
-        private List<Claim> GetClaims(User user, List<string> roles)
+        private async Task<List<Claim>> GetClaims(User user)
         {
+            var roles = await _userManager.GetRolesAsync(user);
             var Claims = new List<Claim>()
             {
                 new Claim(ClaimTypes.Name,user.UserName),
@@ -181,12 +182,13 @@ namespace AccountWeb.Service.Implementations
             {
                 Claims.Add(new Claim(ClaimTypes.Role, role));
             }
+            var userClaims = await _userManager.GetClaimsAsync(user);
+            Claims.AddRange(userClaims);
             return Claims;
         }
         private async Task<(JwtSecurityToken, string)> GenerateJWTToken(User user)
         {
-            var roles = await _userManager.GetRolesAsync(user);
-            var claims = GetClaims(user, roles.ToList());
+            var claims = await GetClaims(user);
             var jwtToken = new JwtSecurityToken(
                 _jwtSettings.Issuer,
                 _jwtSettings.Audience,

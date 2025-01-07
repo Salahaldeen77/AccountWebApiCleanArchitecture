@@ -38,6 +38,7 @@ namespace AccountWeb.Api.Controllers
             return NewResult(await Mediator.Send(new GetAccountByIdQuery(Id)));
         }
 
+        [Authorize(Policy = "CreateAccount")]
         [HttpPost(Router.AccountRouting.Create)]
         public async Task<IActionResult> Create([FromBody] AddAccountCommand command)
         {
@@ -46,6 +47,8 @@ namespace AccountWeb.Api.Controllers
 
             return NewResult(await Mediator.Send(command));
         }
+
+        [Authorize(Policy = "EditAccount")]
         [HttpPut(Router.AccountRouting.Edit)]
         public async Task<IActionResult> Edit([FromBody] EditAccountCommand command)
         {
@@ -55,6 +58,7 @@ namespace AccountWeb.Api.Controllers
             return NewResult(await Mediator.Send(command));
         }
 
+        [Authorize(Policy = "DeleteAccount")]
         [HttpDelete(Router.AccountRouting.Delete)]
         public async Task<IActionResult> Delete([FromRoute] int Id)
         {

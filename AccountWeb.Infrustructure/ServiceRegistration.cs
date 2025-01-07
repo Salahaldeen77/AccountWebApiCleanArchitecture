@@ -97,6 +97,36 @@ namespace AccountWeb.Infrustructure
            });
             });
 
+            services.AddAuthorization(option =>
+            {
+                option.AddPolicy("CreateAccount", policy =>
+                {
+                    policy.RequireClaim("Create Account", "True");
+                });
+                option.AddPolicy("EditAccount", policy =>
+                {
+                    policy.RequireClaim("Edit Account", "True");
+                });
+                option.AddPolicy("DeleteAccount", policy =>
+                {
+                    policy.RequireClaim("Delete Account", "True");
+                });
+
+                option.AddPolicy("CreateUser", policy =>
+                {
+                    policy.RequireClaim("Create User", "True");
+                });
+                option.AddPolicy("EditUser", policy =>
+                {
+                    policy.RequireClaim("Edit User", "True");
+                });
+                option.AddPolicy("DeleteUser", policy =>
+                {
+                    policy.RequireClaim("Delete User", "True");
+                });
+
+
+            });
 
             return services;
         }

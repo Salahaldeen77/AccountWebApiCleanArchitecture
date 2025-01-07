@@ -13,6 +13,7 @@ namespace AccountWeb.Api.Controllers
 
     public class UserController : AppControllerBase
     {
+        [Authorize(Policy = "CreateUser")]
         [HttpPost(Router.UserRouting.Create)]
         public async Task<IActionResult> Create([FromBody] AddUserCommand command)
         {
@@ -35,12 +36,14 @@ namespace AccountWeb.Api.Controllers
             return NewResult(await Mediator.Send(new GetUserByIdQuery(Id)));
         }
 
+        [Authorize(Policy = "EditUser")]
         [HttpPut(Router.UserRouting.Edite)]
         public async Task<IActionResult> Edite([FromBody] EditeUserCommand command)
         {
             return NewResult(await Mediator.Send(command));
         }
 
+        [Authorize(Policy = "DeleteUser")]
         [HttpDelete(Router.UserRouting.Delete)]
         public async Task<IActionResult> Delete([FromRoute] int Id)
         {
