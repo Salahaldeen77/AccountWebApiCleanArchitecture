@@ -9,6 +9,10 @@ namespace AccountWeb.Data.Helpers
             new Claim("Create Account","false"),
             new Claim("Edit Account","false"),
             new Claim("Delete Account","false"),
+
+            new Claim("Create User","false"),
+            new Claim("Edit User","false"),
+            new Claim("Delete User","false"),
         };
     }
 }
