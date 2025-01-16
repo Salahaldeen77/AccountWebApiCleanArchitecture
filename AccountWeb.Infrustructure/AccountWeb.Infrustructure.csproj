@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AccountWeb.Data\AccountWeb.Data.csproj" />
+	  <ProjectReference Include="..\AccountWeb.Data\AccountWeb.Data.csproj" />
   </ItemGroup>
 
 </Project>

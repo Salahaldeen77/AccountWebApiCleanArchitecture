@@ -34,7 +34,7 @@ namespace AccountWeb.Infrustructure
                 option.User.AllowedUserNameCharacters =
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 option.User.RequireUniqueEmail = true;
-                option.SignIn.RequireConfirmedEmail = false;
+                option.SignIn.RequireConfirmedEmail = true;
 
 
 
@@ -44,6 +44,11 @@ namespace AccountWeb.Infrustructure
             var jwtSettings = new JwtSettings();
             configuration.GetSection(nameof(jwtSettings)).Bind(jwtSettings);
             services.AddSingleton(jwtSettings);
+
+            //paind from appsettings to class EmailSettings because use the class in any where
+            var emailSettings = new EmailSettings();
+            configuration.GetSection(nameof(emailSettings)).Bind(emailSettings);
+            services.AddSingleton(emailSettings);
 
             services.AddAuthentication(x =>
             {

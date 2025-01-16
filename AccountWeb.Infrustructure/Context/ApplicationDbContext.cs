@@ -9,13 +9,10 @@ namespace AccountWeb.Infrustructure.Context
 {
     public class ApplicationDbContext : IdentityDbContext<User, Role, int, IdentityUserClaim<int>, IdentityUserRole<int>, IdentityUserLogin<int>, IdentityRoleClaim<int>, IdentityUserToken<int>>
     {
-        public ApplicationDbContext()
-        {
-
-        }
+        // private readonly IEncryptionProvider _encryptionProvider;
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-
+            //  _encryptionProvider = new GenerateEncryptionProvider("ca9ece9014c642dd863907768b5e84f3ca9ece9014c642dd863907768b5e84f3");
         }
 
         public DbSet<User> User { get; set; }
@@ -85,10 +82,17 @@ namespace AccountWeb.Infrustructure.Context
             //});
             #endregion
 
-            base.OnModelCreating(modelBuilder);
+
 
             //Call and Apply any configurations in solution
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            //modelBuilder.UseEncryption(_encryptionProvider);
+            var encryptionConverter = new EncryptionConverter("ca9ece9014c642dd863907768b5e84f3ca9ece9014c642dd863907768b5e84f3");
+            modelBuilder.Entity<User>()
+                .Property(u => u.Code)
+                .HasConversion(encryptionConverter);
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

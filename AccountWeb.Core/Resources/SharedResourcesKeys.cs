@@ -21,6 +21,8 @@
         public const string TokenIsExpired = "TokenIsExpired";
         public const string IsExist = "IsExist";
         public const string AddFailed = "AddFailed";
+        public const string IncorrectEmailFormate = "IncorrectEmailFormate";
+        public const string EmailNotConfirmed = "EmailNotConfirmed";
 
 
     }

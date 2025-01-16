@@ -174,4 +174,11 @@
   <data name="AddFailed" xml:space="preserve">
     <value>Added Failed</value>
   </data>
+  <data name="IncorrectEmailFormate" xml:space="preserve">
+    <value>Incorrect Email Formate</value>
+    <comment>Incorrect Email Formate</comment>
+  </data>
+  <data name="EmailNotConfirmed" xml:space="preserve">
+    <value>Pleas confirm your email</value>
+  </data>
 </root>

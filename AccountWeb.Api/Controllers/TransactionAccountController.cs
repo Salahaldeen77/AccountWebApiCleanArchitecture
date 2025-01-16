@@ -1,6 +1,7 @@
 ﻿using AccountWeb.Api.Base;
 using AccountWeb.Core.Features.TransactionAccounts.Commands.Models;
 using AccountWeb.Core.Features.TransactionAccounts.Queries.Models;
+using AccountWeb.Core.Filters;
 using AccountWeb.Data.AppMetaData;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -10,6 +11,7 @@ namespace AccountWeb.Api.Controllers
 {
     [ApiController]
     [Authorize(Roles = "User")] //Access to the class private except User
+    [ServiceFilter(typeof(AuthFilter))] //Use my filter
     public class TransactionAccountController : AppControllerBase
     {
 
@@ -21,14 +23,14 @@ namespace AccountWeb.Api.Controllers
             this._mediator = mediator;
         }
 
-        [AllowAnonymous] //Access to the Function is public to Anonymous
+
         [HttpGet(Router.TransactionAccountRouting.List)]
         public async Task<IActionResult> GetTransactionAccountList()
         {
             var response = await _mediator.Send(new GetTransactionAccountListResponseQuery());
             return Ok(response);
         }
-        [AllowAnonymous] //Access to the Function is public to Anonymous
+
         [HttpPost(Router.TransactionAccountRouting.Create)]
         public async Task<IActionResult> Create([FromBody] AddTransactionAccountCommand command)
         {

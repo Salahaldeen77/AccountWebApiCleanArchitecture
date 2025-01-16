@@ -1,6 +1,7 @@
 ﻿using AccountWeb.Api.Base;
 using AccountWeb.Core.Features.Accounts.Commands.Models;
 using AccountWeb.Core.Features.Accounts.Queries.Models;
+using AccountWeb.Core.Filters;
 using AccountWeb.Data.AppMetaData;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,7 @@ namespace AccountWeb.Api.Controllers
 
     [ApiController]
     [Authorize(Roles = "Admin,User")] //Access to the Class Private Except Admin or User
+    [ServiceFilter(typeof(AuthFilter))] //Use my filter
     public class AccountController : AppControllerBase
     {
 

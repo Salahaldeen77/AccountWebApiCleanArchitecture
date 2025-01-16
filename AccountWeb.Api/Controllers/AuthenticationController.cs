@@ -27,5 +27,29 @@ namespace AccountWeb.Api.Controllers
             var response = await Mediator.Send(query);
             return NewResult(response);
         }
+        [HttpGet(Router.Authentication.ConfirmEmail)]
+        public async Task<IActionResult> ConfirmEmail([FromQuery] ConfirmEmailQuery query)
+        {
+            var response = await Mediator.Send(query);
+            return NewResult(response);
+        }
+        [HttpPost(Router.Authentication.SendResetPassword)]
+        public async Task<IActionResult> SendResetPassword([FromForm] SendResetPasswordCommand command)
+        {
+            var response = await Mediator.Send(command);
+            return NewResult(response);
+        }
+        [HttpGet(Router.Authentication.ConfirmResetPassword)]
+        public async Task<IActionResult> ConfirmResetPassword([FromQuery] ConfirmResetPasswordQuery query)
+        {
+            var response = await Mediator.Send(query);
+            return NewResult(response);
+        }
+        [HttpPost(Router.Authentication.ResetPassword)]
+        public async Task<IActionResult> ResetPassword([FromForm] ResetPasswordCommand cmd)
+        {
+            var response = await Mediator.Send(cmd);
+            return NewResult(response);
+        }
     }
 }

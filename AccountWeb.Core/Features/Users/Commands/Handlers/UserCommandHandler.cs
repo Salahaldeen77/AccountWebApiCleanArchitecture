@@ -2,6 +2,7 @@
 using AccountWeb.Core.Features.Users.Commands.Models;
 using AccountWeb.Core.Resources;
 using AccountWeb.Data.Entities.Identity;
+using AccountWeb.Service.Abstracts;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -19,16 +20,19 @@ namespace AccountWeb.Core.Features.Users.Commands.Handlers
         private readonly IMapper _mapper;
         private readonly IStringLocalizer<SharedResources> _sharedResources;
         private readonly UserManager<User> _userManager;
+        private readonly IUserService _userService;
         #endregion
 
         #region Constructors
         public UserCommandHandler(IStringLocalizer<SharedResources> stringLocalizer,
                                   IMapper mapper,
-                                  UserManager<User> userManager) : base(stringLocalizer)
+                                  UserManager<User> userManager,
+                                  IUserService userService) : base(stringLocalizer)
         {
             _sharedResources = stringLocalizer;
             _mapper = mapper;
             _userManager = userManager;
+            _userService = userService;
         }
 
         #endregion
@@ -36,25 +40,14 @@ namespace AccountWeb.Core.Features.Users.Commands.Handlers
         #region Handlers
         public async Task<Response<string>> Handle(AddUserCommand request, CancellationToken cancellationToken)
         {
-            //if email exist
-            var user = await _userManager.FindByEmailAsync(request.Email);
-            if (user != null) return BadRequest<string>("Failed, Email is Exist");
-            //if UserName is Exist
-            var userByUserName = await _userManager.FindByNameAsync(request.UserName);
-            if (userByUserName != null) return BadRequest<string>("Failed, UserName is Exist");
-
             //Mapping 
             var identityUser = _mapper.Map<User>(request);
-
             //Create 
-            var CreateResult = await _userManager.CreateAsync(identityUser, request.Password);
+            var CreateResult = await _userService.AddUserAsync(identityUser, request.Password);
             //Failed
-            if (!CreateResult.Succeeded) return BadRequest<string>("Failed to add user", CreateResult.Errors.FirstOrDefault().Description);
+            if (CreateResult != "Success")
+                return BadRequest<string>(Meta: CreateResult);
 
-            //Adding Role User
-            await _userManager.AddToRoleAsync(identityUser, "User");
-
-            //Success
             return Created("");
 
         }

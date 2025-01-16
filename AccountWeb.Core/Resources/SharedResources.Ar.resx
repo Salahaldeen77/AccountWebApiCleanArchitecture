@@ -177,4 +177,10 @@
   <data name="AddFailed" xml:space="preserve">
     <value>حدث خطأ في الاضافه</value>
   </data>
+  <data name="IncorrectEmailFormate" xml:space="preserve">
+    <value>صيغة الايميل غير صحيحه</value>
+  </data>
+  <data name="EmailNotConfirmed" xml:space="preserve">
+    <value>من فضلك قم بتأكيد حسابك الالكتروني</value>
+  </data>
 </root>
