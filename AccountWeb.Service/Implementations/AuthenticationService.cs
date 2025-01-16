@@ -2,6 +2,7 @@
 using AccountWeb.Data.Helpers;
 using AccountWeb.Data.Responses;
 using AccountWeb.Infrustructure.Abstracts;
+using AccountWeb.Infrustructure.Context;
 using AccountWeb.Service.Abstracts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -19,14 +20,20 @@ namespace AccountWeb.Service.Implementations
         private readonly JwtSettings _jwtSettings;
         private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<User> _userManager;
+        private readonly IEmailsService _emailsService;
+        private readonly ApplicationDbContext _applicationDbContext;
+
         #endregion
 
         #region Constructors
-        public AuthenticationService(JwtSettings jwtSettings, IUnitOfWork unitOfWork, UserManager<User> userManager)
+        public AuthenticationService(JwtSettings jwtSettings, IUnitOfWork unitOfWork, UserManager<User> userManager, IEmailsService emailsService
+                                    , ApplicationDbContext applicationDbContext)
         {
             _jwtSettings = jwtSettings;
             _unitOfWork = unitOfWork;
             _userManager = userManager;
+            _emailsService = emailsService;
+            _applicationDbContext = applicationDbContext;
         }
         #endregion
 
@@ -199,7 +206,96 @@ namespace AccountWeb.Service.Implementations
             return (jwtToken, accessToken);
         }
 
+        public async Task<string> ConfirmEmail(int? userId, string? code)
+        {
+            if (userId == null || code == null)
+                return "Error occur When Confirm Email";
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            var confirmEmail = await _userManager.ConfirmEmailAsync(user, code);
+            if (!confirmEmail.Succeeded)
+                return "Error occur When Confirm Email";
+            return "Success";
+        }
 
+        public async Task<string> SendResetPasswordCode(string Email)
+        {
+            using (var transact = await _applicationDbContext.Database.BeginTransactionAsync())
+            {
+                try
+                {
+                    //get user
+                    var user = await _userManager.FindByEmailAsync(Email);
+                    if (user == null)
+                        return "UserNotFound";
+                    //Generate Random Number
+                    Random generator = new Random();
+                    string randomNumber = generator.Next(0, 1000000).ToString("D6");
+                    //Update User Code in Database
+                    user.Code = randomNumber;
+                    var updateResult = await _userManager.UpdateAsync(user);
+                    if (!updateResult.Succeeded)
+                        return "Failed Update User";
+                    //send Code To Email
+                    var message = "Code To Reset Password : " + randomNumber;
+                    var result = await _emailsService.SendEmail(Email, message, "Reset Password");
+                    if (result != "Success")
+                        return "Failed send code to email . " + result;
+
+                    await transact.CommitAsync();
+                    return "Success";
+                }
+                catch (Exception ex)
+                {
+                    await transact.RollbackAsync();
+                    return "Failed, " + ex.Message;
+                }
+
+            }
+        }
+
+        public async Task<string> ConfirmResetPassword(string Code, string Email)
+        {
+            //get user
+            var user = await _userManager.FindByEmailAsync(Email);
+            if (user == null)
+                return "UserNotFound";
+
+            if (user.Code != Code) return "Invalid Code";
+
+            return "Success";
+
+        }
+
+        public async Task<string> ResetPassword(string Email, string Password)
+        {
+            using (var transact = await _applicationDbContext.Database.BeginTransactionAsync())
+            {
+                try
+                {
+                    //get user
+                    var user = await _userManager.FindByEmailAsync(Email);
+                    if (user == null)
+                        return "UserNotFound";
+
+                    var removeResult = await _userManager.RemovePasswordAsync(user);
+                    if (!removeResult.Succeeded)
+                        return "Failed Remove The Old Password " + removeResult.Errors.FirstOrDefault();
+
+                    var addNewPassword = await _userManager.AddPasswordAsync(user, Password);
+                    if (!addNewPassword.Succeeded)
+                        return "Failed Add New Password " + addNewPassword.Errors.FirstOrDefault();
+
+                    await transact.CommitAsync();
+                    return "Success";
+                }
+                catch (Exception ex)
+                {
+                    await transact.RollbackAsync();
+                    return "Failed, " + ex.Message;
+                }
+
+            }
+        }
         #endregion
 
 
