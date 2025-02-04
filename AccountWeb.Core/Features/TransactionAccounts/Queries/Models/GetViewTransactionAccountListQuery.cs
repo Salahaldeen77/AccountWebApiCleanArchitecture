@@ -4,10 +4,7 @@ using MediatR;
 
 namespace AccountWeb.Core.Features.TransactionAccounts.Queries.Models
 {
-    public class GetTransactionAccountListResponseQuery : IRequest<Response<List<GetTransactionAccountListResponse>>>
+    public class GetViewTransactionAccountListQuery : IRequest<Response<List<GetViewTransactionAccountListResponse>>>
     {
-
     }
-
-
 }

@@ -19,7 +19,8 @@ namespace AccountWeb.Service
                     .AddTransient<IAuthorizationService, AuthorizationService>()
                     .AddTransient<IEmailsService, EmailsService>()
                     .AddTransient<IUserService, UserService>()
-                    .AddTransient<ICurrentUserService, CurrentUserService>();
+                    .AddTransient<ICurrentUserService, CurrentUserService>()
+                    .AddTransient<IFileService, FileService>();
             return services;
         }
 

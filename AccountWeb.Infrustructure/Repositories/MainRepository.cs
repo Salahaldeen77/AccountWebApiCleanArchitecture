@@ -2,16 +2,11 @@
 using AccountWeb.Infrustructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AccountWeb.Infrustructure.Repositories
 {
-    public class MainRepository<T>:IMainRepository<T> where T : class
+    public class MainRepository<T> : IMainRepository<T> where T : class
     {
         private readonly ApplicationDbContext _context;
 
@@ -122,7 +117,7 @@ namespace AccountWeb.Infrustructure.Repositories
         }
         public IQueryable<T> GetTableNoTracking()
         {
-            return  _context.Set<T>().AsNoTracking().AsQueryable();
+            return _context.Set<T>().AsNoTracking().AsQueryable();
         }
 
 
@@ -142,9 +137,7 @@ namespace AccountWeb.Infrustructure.Repositories
             await _context.SaveChangesAsync();
         }
         public IDbContextTransaction BeginTransaction()
-        {
-
-
+        {//
             return _context.Database.BeginTransaction();
         }
 
@@ -188,6 +181,21 @@ namespace AccountWeb.Infrustructure.Repositories
             await _context.SaveChangesAsync();
 
             return entity;
+        }
+
+        public async Task<IDbContextTransaction> BeginTransactionAsync()
+        {
+            return await _context.Database.BeginTransactionAsync();
+        }
+
+        public async Task CommitAsync()
+        {
+            await _context.Database.CommitTransactionAsync();
+        }
+
+        public async Task RollBackAsync()
+        {
+            await _context.Database.RollbackTransactionAsync();
         }
     }
 }

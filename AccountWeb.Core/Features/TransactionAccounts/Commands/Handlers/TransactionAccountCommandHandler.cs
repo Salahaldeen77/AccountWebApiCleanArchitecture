@@ -41,39 +41,32 @@ namespace AccountWeb.Core.Features.TransactionAccounts.Commands.Handlers
             {
                 transactionAccountMapper.IsDebit = true;
                 transactionAccountMapper.TransferredToAccountId = null;
-                if (await _transactionAccountService.PaymentAccountAsync(transactionAccountMapper.AccountId, transactionAccountMapper.Amount) == "Success" &&
-                    await _transactionAccountService.AddTransactionAccountAsync(transactionAccountMapper) == "Success")
-                {
-                    return Created("Note:TransactionId = /1-Pyment\\2-Receipt\\3-Transfer\\     You Chose 1-Pyment");
-                }
-                else return BadRequest<string>("Account is Not Found");
-            }
+                var payemntResult = await _transactionAccountService.PaymentAccountAsync(transactionAccountMapper);
+                if (payemntResult == "Success")
+                    return Created("Add Payment is successfull");
+                else
+                    return BadRequest<string>(payemntResult, "Note:TransactionId = /1-Pyment\\2-Receipt\\3-Transfer\\     You Chose 1-Payment");
+            }//
             else if (transactionAccountMapper.TransactionId == 2)//is Receipt
             {
                 transactionAccountMapper.TransferredToAccountId = null;
                 transactionAccountMapper.IsDebit = false;
-                if (await _transactionAccountService.ReceiptAccountAsync(transactionAccountMapper.AccountId, transactionAccountMapper.Amount) == "Success" &&
-                    await _transactionAccountService.AddTransactionAccountAsync(transactionAccountMapper) == "Success")
-                {
-                    return Created("Note:TransactionId = 1-Pyment\\2-Receipt\\3-Transfer\\     You Chose 2-receipt");
-                }
+                var receiptResult = await _transactionAccountService.ReceiptAccountAsync(transactionAccountMapper);
+                if (receiptResult == "Success")
+                    return Created("Add Receipt is successfull");
                 else
-                {
-                    Account account = await _accountService.GetAccountByIdAsNoTrackingAsync(transactionAccountMapper.AccountId);
-                    return BadRequest<string>($"Receipt Amount is More Than Account Balance ={account.OpeningBalance}",
-                                                "Note:TransactionId = 1-Pyment\\2-Receipt\\3-Transfer\\    You Chose 2-receipt");
-                }
+                    return BadRequest<string>(receiptResult, "Note:TransactionId = /1-Pyment\\2-Receipt\\3-Transfer\\     You Chose 2-Receipt");
+
             }
             else if (transactionAccountMapper.TransactionId == 3)//is transfer
             {
                 transactionAccountMapper.IsDebit = false;
-                if (await _transactionAccountService.TransferAccountAsync(transactionAccountMapper) == "Success" &&
-                    await _transactionAccountService.AddTransactionAccountAsync(transactionAccountMapper) == "Success")
-                {
-                    return Created("Note:TransactionId = /1-Pyment\\2-Receipt\\3-Transfer\\     You Chose 3-Transfer");
-                }
-                else return BadRequest<string>("One The Account is Not Found or transfer Amount is More Than Account Balance",
-                                                "Note:TransactionId = /1-Pyment\\2-Receipt\\3-Transfer\\     You Chose 3-Transfer");
+                var transferResult = await _transactionAccountService.TransferAccountAsync(transactionAccountMapper);
+                if (transferResult == "Success")
+                    return Created("Add Transfer is successfull");
+
+                else
+                    return BadRequest<string>(transferResult, "Note:TransactionId = /1-Pyment\\2-Receipt\\3-Transfer\\     You Chose 3-Transfer");
             }
 
             else return BadRequest<string>();

@@ -26,6 +26,7 @@ public partial class Account
     /// </summary>
     [Required]
     public bool IsActive { get; set; }
+    public string? Image { get; set; }
 
     public virtual ICollection<TransactionAccount> TransactionAccounts { get; set; }
 }

@@ -1,5 +1,6 @@
 ﻿using AccountWeb.Data.Entities;
 using AccountWeb.Data.Entities.Identity;
+using AccountWeb.Data.Entities.Views;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -9,10 +10,10 @@ namespace AccountWeb.Infrustructure.Context
 {
     public class ApplicationDbContext : IdentityDbContext<User, Role, int, IdentityUserClaim<int>, IdentityUserRole<int>, IdentityUserLogin<int>, IdentityRoleClaim<int>, IdentityUserToken<int>>
     {
-        // private readonly IEncryptionProvider _encryptionProvider;
+        //private readonly IEncryptionProvider _encryptionProvider;
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-            //  _encryptionProvider = new GenerateEncryptionProvider("ca9ece9014c642dd863907768b5e84f3ca9ece9014c642dd863907768b5e84f3");
+            // _encryptionProvider = new GenerateEncryptionProvider("ca9ece9014c642dd863907768b5e84f3");
         }
 
         public DbSet<User> User { get; set; }
@@ -21,6 +22,10 @@ namespace AccountWeb.Infrustructure.Context
         public DbSet<TransactionAccount> TransactionAccounts { get; set; }
         public DbSet<LedgerEntry> LedgerEntries { get; set; }
         public DbSet<UserRefreshToken> UserRefreshToken { get; set; }
+
+        #region Views
+        public DbSet<ViewTransAccounts> ViewTransAccounts { get; set; }
+        #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -87,6 +92,7 @@ namespace AccountWeb.Infrustructure.Context
             //Call and Apply any configurations in solution
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             //modelBuilder.UseEncryption(_encryptionProvider);
+
             var encryptionConverter = new EncryptionConverter("ca9ece9014c642dd863907768b5e84f3ca9ece9014c642dd863907768b5e84f3");
             modelBuilder.Entity<User>()
                 .Property(u => u.Code)

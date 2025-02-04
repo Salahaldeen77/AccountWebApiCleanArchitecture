@@ -1,5 +1,6 @@
 ﻿using AccountWeb.Data.Entities;
 using AccountWeb.Data.Entities.Identity;
+using AccountWeb.Data.Entities.Views;
 
 namespace AccountWeb.Infrustructure.Abstracts
 {
@@ -10,6 +11,7 @@ namespace AccountWeb.Infrustructure.Abstracts
         IMainRepository<TransactionAccount> TransactionAccounts { get; }
         IMainRepository<LedgerEntry> LedgerEntries { get; }
         IMainRepository<UserRefreshToken> UserRefreshTokens { get; }
+        IMainRepository<ViewTransAccounts> ViewTransAccounts { get; }
         int CommitChanges();
     }
 }

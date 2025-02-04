@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Serilog;
 using System.Globalization;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -96,6 +97,11 @@ builder.Services.AddTransient<IUrlHelper>(x =>
 
 builder.Services.AddTransient<AuthFilter>();
 
+//Serilog
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration).CreateLogger();
+builder.Services.AddSerilog();
+
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
@@ -123,6 +129,7 @@ app.UseMiddleware<ErrorHandlerMiddleware>();
 app.UseHttpsRedirection();
 
 app.UseCors(CORS); //////
+app.UseStaticFiles(); //because upload image and file
 
 app.UseAuthentication();
 app.UseAuthorization();

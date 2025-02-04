@@ -1,5 +1,6 @@
 ﻿using AccountWeb.Data.Entities;
 using AccountWeb.Data.Entities.Identity;
+using AccountWeb.Data.Entities.Views;
 using AccountWeb.Infrustructure.Abstracts;
 using AccountWeb.Infrustructure.Context;
 
@@ -16,6 +17,7 @@ namespace AccountWeb.Infrustructure.Repositories
             TransactionAccounts = new MainRepository<TransactionAccount>(_context);
             LedgerEntries = new MainRepository<LedgerEntry>(_context);
             UserRefreshTokens = new MainRepository<UserRefreshToken>(_context);
+            ViewTransAccounts = new MainRepository<ViewTransAccounts>(_context);
         }
         public IMainRepository<Account> Accountes { get; private set; }
 
@@ -25,6 +27,8 @@ namespace AccountWeb.Infrustructure.Repositories
 
         public IMainRepository<LedgerEntry> LedgerEntries { get; private set; }
         public IMainRepository<UserRefreshToken> UserRefreshTokens { get; private set; }
+
+        public IMainRepository<ViewTransAccounts> ViewTransAccounts { get; private set; }
 
         public int CommitChanges()
         {
