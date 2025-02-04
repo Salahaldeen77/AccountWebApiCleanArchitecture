@@ -34,7 +34,7 @@ namespace AccountWeb.Core.Features.Accounts.Commands.Handlers
             //Mapping Between request and Account
             var AccountMapper = _mapper.Map<Account>(request);
             //add Account To Db
-            var result = await _accountService.AddAccountAsync(AccountMapper);
+            var result = await _accountService.AddAccountAsync(AccountMapper, request.Image);
             //Check Condition
             //if (result == "Exist") return UnprocessableEntity<String>("AccountNumber is Exist");
             ////Return Response
@@ -42,7 +42,7 @@ namespace AccountWeb.Core.Features.Accounts.Commands.Handlers
             //else return BadRequest<string>();
 
             if (result == "Success") return Created("");
-            else return BadRequest<string>();
+            else return BadRequest<string>(result);
         }
 
         public async Task<Response<string>> Handle(EditAccountCommand request, CancellationToken cancellationToken)

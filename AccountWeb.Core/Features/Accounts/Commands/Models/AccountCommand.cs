@@ -1,5 +1,6 @@
 ﻿using AccountWeb.Core.Bases;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 
 namespace AccountWeb.Core.Features.Accounts.Commands.Models
 {
@@ -16,6 +17,7 @@ namespace AccountWeb.Core.Features.Accounts.Commands.Models
         /// 1 Active
         /// </summary>
         public bool IsActive { get; set; }
+        public IFormFile? Image { get; set; }
 
     }
     public class EditAccountCommand : IRequest<Response<string>>
@@ -31,6 +33,8 @@ namespace AccountWeb.Core.Features.Accounts.Commands.Models
         /// 1 Active
         /// </summary>
         public bool IsActive { get; set; }
+        public IFormFile? Image { get; set; }
+
     }
     public class DeleteAccountCommand : IRequest<Response<string>>
     {

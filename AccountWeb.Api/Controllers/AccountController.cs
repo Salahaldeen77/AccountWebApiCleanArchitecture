@@ -42,7 +42,7 @@ namespace AccountWeb.Api.Controllers
 
         [Authorize(Policy = "CreateAccount")]
         [HttpPost(Router.AccountRouting.Create)]
-        public async Task<IActionResult> Create([FromBody] AddAccountCommand command)
+        public async Task<IActionResult> Create([FromForm] AddAccountCommand command)
         {
             //var response =await Mediator.Send(command);
             //return Ok(response);

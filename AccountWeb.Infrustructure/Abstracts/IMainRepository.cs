@@ -1,10 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AccountWeb.Infrustructure.Abstracts
 {
@@ -32,12 +27,16 @@ namespace AccountWeb.Infrustructure.Abstracts
         IDbContextTransaction BeginTransaction();
         void Commit();
         void RollBack();
-       IQueryable<T>  GetTableNoTracking();
+        IQueryable<T> GetTableNoTracking();
         IQueryable<T> GetTableAsTracking();
         Task AddRangeAsync(ICollection<T> entities);
         Task UpdateRangeAsync(ICollection<T> entities);
         Task<T> AddAsync(T entity);
         Task DeleteAsync(T entity);
         Task UpdateAsync(T entity);
+
+        Task<IDbContextTransaction> BeginTransactionAsync();
+        Task CommitAsync();
+        Task RollBackAsync();
     }
 }

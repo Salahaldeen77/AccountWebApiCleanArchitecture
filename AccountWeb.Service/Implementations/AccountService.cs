@@ -4,7 +4,9 @@ using AccountWeb.Infrustructure.Abstracts;
 using AccountWeb.Infrustructure.Context;
 using AccountWeb.Infrustructure.Repositories;
 using AccountWeb.Service.Abstracts;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 namespace AccountWeb.Service.Implementations
 {
@@ -12,11 +14,15 @@ namespace AccountWeb.Service.Implementations
     {
         //private readonly DbSet<Account> _accounts;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IFileService _fileService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public AccountService(ApplicationDbContext dbContext, IUnitOfWork unitOfWork) : base(dbContext)
+        public AccountService(ApplicationDbContext dbContext, IUnitOfWork unitOfWork, IFileService fileService, IHttpContextAccessor httpContextAccessor) : base(dbContext)
         {
             // _accounts=dbContext.Set<Account>();
             this._unitOfWork = unitOfWork;
+            _fileService = fileService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<IEnumerable<Account>> GetAllAccountsWithIncludeAsync()
@@ -34,16 +40,32 @@ namespace AccountWeb.Service.Implementations
             return account;
         }
 
-        public async Task<string> AddAccountAsync(Account account)
+        public async Task<string> AddAccountAsync(Account account, IFormFile file)
         {
+            var httpContext = _httpContextAccessor.HttpContext.Request;
+            var baseurl = httpContext.Scheme + "://" + httpContext.Host;
             //check if the AccountNumber is Exist or not
             var accountResult = _unitOfWork.Accountes.GetTableNoTracking().Where(x => x.AccountNumber.Equals(account.AccountNumber)).FirstOrDefault();
             if (accountResult != null) return "Exist";
-
+            var imageUrl = await _fileService.UploadImageAsync("Accounts", file);
+            switch (imageUrl)
+            {
+                case "FailedToUploadImage": return "returnFailedToUploadImage";
+                case "NoImage": return "NoImage";
+            }
+            account.Image = baseurl + imageUrl;
             //Added Account
             //if (account.Id != null) account.Id = null;
-            await _unitOfWork.Accountes.AddAsync(account);
-            return "Success";
+            try
+            {
+                await _unitOfWork.Accountes.AddAsync(account);
+                return "Success";
+            }
+            catch (Exception ex)
+            {
+                return "Failed " + ex.Message.FirstOrDefault();
+            }
+
 
         }
 
@@ -67,8 +89,7 @@ namespace AccountWeb.Service.Implementations
             using (var trans = _unitOfWork.Accountes.BeginTransaction())
             {
                 try
-                {
-                    // تحديث الحالة لكي لا تتم متابعة الكائن
+                {//
                     await _unitOfWork.Accountes.UpdateAsync(account);
 
                     await trans.CommitAsync();
@@ -93,9 +114,10 @@ namespace AccountWeb.Service.Implementations
                     await trans.CommitAsync();
                     return "Success";
                 }
-                catch
+                catch (Exception ex)
                 {
                     await trans.RollbackAsync();
+                    Log.Error(ex, $"Failed Delete Account");
                     return "Failed";
                 }
             }

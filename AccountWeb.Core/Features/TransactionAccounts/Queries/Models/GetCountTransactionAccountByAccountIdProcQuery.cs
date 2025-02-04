@@ -4,10 +4,8 @@ using MediatR;
 
 namespace AccountWeb.Core.Features.TransactionAccounts.Queries.Models
 {
-    public class GetTransactionAccountListResponseQuery : IRequest<Response<List<GetTransactionAccountListResponse>>>
+    public class GetCountTransactionAccountByAccountIdProcQuery : IRequest<Response<List<GetCountTransactionAccountByAccountIdProcResponse>>>
     {
-
+        public int AccountId { get; set; }
     }
-
-
 }
